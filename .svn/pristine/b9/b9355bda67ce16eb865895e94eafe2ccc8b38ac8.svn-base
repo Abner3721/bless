@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>奈思科技</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__ADMIN__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+    <style type="text/css">
+        .headerimg{
+            display: block;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border:6px solid #C0C0C0;
+            transition:all 500ms;
+        }
+        .headerimg:hover{
+            transform:rotate(320deg);
+        }
+        .nav-second-level li a.on{
+                color: white;
+        }
+    </style>
+    <style type="text/css">
+        .btn-info ,.btn-info:hover,.btn-info:focus,.btn-info:active:hover{
+            background-color:{$adminpage.admincolor};
+            border-color:{$adminpage.admincolor};
+        }
+        .form-group h3 a{
+            color: {$adminpage.admincolor};
+        }
+        .nav > li.active{
+            border-left: 4px solid {$adminpage.admincolor};
+        }
+        body.mini-navbar .nav-header{
+        background-color:{$adminpage.admincolor};
+        }
+    </style>
+
+
+
+</head>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<div id="wrapper">
+    <!--左侧导航开始-->
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="nav-close"><i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+                                <span class="clear">
+                                    <span class="block m-t-xs" style="font-size:20px;"><strong class="font-bold">{$adminpage.title}</strong>
+                                    </span>
+                                </span></a></div>
+                    <div class="logo-element">{$adminpage.title_mall}</div>
+                </li>
+                {foreach  $menu as $vo}
+                <li>
+                    <a href="javascript:;">
+                        <span class="nav-label" style="font-size: 15px">{$vo.title}</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        {notempty name="vo['child']"}
+                        {foreach $vo['child'] as $son}
+                        <li>
+                            <a class="J_menuItem" href="{:url($son['name'])}" style="font-size: 15px">{$son.title}</a>
+                        </li>
+                        {/foreach}
+                        {/notempty}
+                    </ul>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+    </nav>
+    <script type="text/javascript">
+        $(function(){
+            $('.nav-second-level li a').click(function () {
+                $(this).addClass('on').parents('li').siblings().find('a').removeClass('on');
+            });
+        })
+
+    </script>
+    <!--左侧导航结束-->
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="javascript:;" style="margin-top: 25px" ><i class="fa fa-bars"></i></a>
+                </div>
+                <div class="form-group">
+                    <h3 style="float: right; margin-right: 40px; line-height: 60px;"><a href="{:url('Login/loginout')}">退出登录</a></h3>
+                    <h3 style="float: right; margin-right: 40px; line-height: 60px;"><a href="{:url('/')}" target="_blank">网站首页</a></h3>
+                    <h3 style="float: right; margin-right: 80px; line-height: 60px;">欢迎 {$username} 登录平台</h3>
+                </div>
+            </nav>
+        </div>

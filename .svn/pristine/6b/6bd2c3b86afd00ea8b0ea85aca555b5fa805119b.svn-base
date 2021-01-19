@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__ADMIN__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__ADMIN__/js/webuploader.js"></script>
+    <link rel="stylesheet" href="__ADMIN__/css/webuploader.css">
+    {include file="public/colors"}
+    <style>
+        .droppable-active {background-color: #ffe !important;}
+        .tools a {cursor: pointer;font-size: 80%;
+        }
+        .form-body .col-md-6,
+        .form-body .col-md-12 {min-height: 400px;}
+        .draggable {cursor: move;}
+        .disline{margin-bottom: 35px;}
+        .inputh{height: 40px;}
+        .tab_qt{ display: inline-block; margin-left: 15px;margin-bottom: 45px;color: white;background-color: #23b7e5;cursor:pointer;}
+        .shows{display: block;}
+        .nones{display: none;}
+        .on{color: black;background-color: #a8e4ff;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title"><h5>{$alltitle}</h5></div>
+
+                <div class="ibox-content" style="min-height: 750px ">
+                    <div class="ibox-title tab_qt on" style="height:45px;" ><h5 style=" font-size:14px;">基本配置</h5></div>
+                    <div class="ibox-title tab_qt"    style="height:45px;" ><h5 style=" font-size:14px;">邮件设置</h5></div>
+                    <div class="ibox-title tab_qt"    style="height:45px;" ><h5 style=" font-size:14px;">数据库设置</h5></div>
+                    <div class="ibox-title tab_qt"    style="height:45px;" ><h5 style=" font-size:14px;">七牛云储存配置</h5></div>
+                    <div class="contents">
+                    <div class="tap">
+                    <form action="" method="post"  class="form-horizontal m-t clearfix">
+                        <div style="float: left;width: 45%;">
+                        <div class="form-group draggable disline">
+                            <label class="col-sm-3 control-label">{$info.5.name}：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control inputh" name="config[5]" value="{$info.5.conf_value}" placeholder="{$info.5.name}">
+                            </div>
+                        </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.10.name}：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" name="config[10]" class="form-control inputh" value="{$info.10.conf_value}"  placeholder="{$info.10.name}">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.12.name}：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="config[12]" value="{$info.12.conf_value}"  placeholder="{$info.12.name}">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.20.name}：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="config[20]" value="{$info.20.conf_value}"  placeholder="{$info.20.name}">
+                                </div>
+                            </div>
+
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.22.name}：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="config[22]" value="{$info.22.conf_value}" placeholder="{$info.22.name}">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label disline">{$info.8.name}：</label>
+                                <div class="col-sm-7">
+                                    <textarea class="form-control inputh"  name="config[8]" placeholder="{$info.8.name}">{$info.8.conf_value}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label disline">{$info.13.name}：</label>
+                                <div class="col-sm-7">
+                                    <textarea class="form-control inputh"  name="config[13]" placeholder="{$info.13.name}">{$info.13.conf_value}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                            <label class="col-sm-3 control-label">{$info.17.name}：</label>
+                            <div class="col-sm-9">
+                                <label class="radio-inline">
+                                    <input type="radio" value="0" name="config[17]" {eq name="info[17]['conf_value']" value="0"}checked="checked"{/eq} >关闭</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="1" name="config[17]" {eq name="info[17]['conf_value']" value="1"}checked="checked"{/eq}>开启</label>
+                            </div>
+                            </div>
+
+                        </div>
+
+                        <div style="float: left;width: 45%;">
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.9.name}：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="config[9]" value="{$info.9.conf_value}" placeholder="{$info.9.name}">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.11.name}：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="config[11]" value="{$info.11.conf_value}" placeholder="{$info.11.name}">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                            <label class="col-sm-3 control-label">{$info.19.name}：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control inputh" name="config[19]" value="{$info.19.conf_value}" placeholder="{$info.19.name}">
+                            </div>
+                        </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.21.name}：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="config[21]" value="{$info.21.conf_value}"  placeholder="{$info.21.name}">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.29.name}：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="config[29]" value="{$info.29.conf_value}"  placeholder="{$info.29.name}">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label disline">{$info.15.name}：</label>
+                                <div class="col-sm-7">
+                                    <textarea class="form-control inputh" id="describe" name="config[15]" placeholder="{$info.15.name}">{$info.15.conf_value}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.6.name}：</label>
+                                <div class="col-sm-7 clearfix">
+                                    <div id="uploader-demo">
+                                        <!--用来存放item-->
+                                        <div id="fileList" class="uploader-list"></div>
+                                        <div id="fileOne">选择图片</div>
+                                        <input id="imgurl" type="hidden" name="config[6]" value="{$info.6.conf_value}">
+                                    </div>
+                                    {notempty name="info[6]['conf_value']"}
+                                        <a target="_blank" href="{$info.6.conf_value}">点击查看图片</a>
+                                    {/notempty}
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.18.name}：</label>
+                                <div class="col-sm-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" value="development" name="config[18]" {eq name="info[18]['conf_value']" value="development"}checked="checked"{/eq}>开发环境</label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="product" name="config[18]" {eq name="info[18]['conf_value']" value="product"}checked="checked"{/eq}>产品环境</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group draggable" style="margin-top: 40px">
+                            <div class="col-sm-12 col-sm-offset-5">
+                                <button class="btn btn-primary btn-add" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="tap nones">
+                        <form action="" method="post" class="form-horizontal m-t clearfix">
+                            <div style="float: left;width: 45%;">
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.32.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control inputh" name="config[32]" value="{$info.32.conf_value}" placeholder="{$info.32.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.34.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="config[34]" class="form-control inputh" value="{$info.34.conf_value}"  placeholder="{$info.34.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.30.name}：</label>
+                                    <div class="col-sm-9">
+                                        <label class="radio-inline">
+                                            <input type="radio" value="0" name="config[30]" {eq name="info[30]['conf_value']" value="0"}checked="checked"{/eq}>关闭</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="1" name="config[30]" {eq name="info[30]['conf_value']" value="1"}checked="checked"{/eq}>开启</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div style="float: left;width: 45%;">
+                                <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">{$info.33.name}：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="config[33]" value="{$info.33.conf_value}" placeholder="{$info.33.name}">
+                                </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.42.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control inputh" name="config[42]" value="{$info.42.conf_value}" placeholder="{$info.42.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.31.name}：</label>
+                                    <div class="col-sm-9">
+                                        <label class="radio-inline">
+                                            <input type="radio" value="mail" name="config[31]" {eq name="info[31]['conf_value']" value="mail"}checked="checked"{/eq}>Mail函数（Linux/Unix系统可用）</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="sendmail" name="config[31]" {eq name="info[31]['conf_value']" value="sendmail"}checked="checked"{/eq}>SendMail（Linux/Unix系统可用）</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="smtp" name="config[31]" {eq name="info[31]['conf_value']" value="smtp"}checked="checked"{/eq}>SMTP服务器</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group draggable" style="margin-top: 40px">
+                                <div class="col-sm-12 col-sm-offset-5">
+                                    <button class="btn btn-primary btn-add" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="tap nones">
+                        <form action="" method="post" class="form-horizontal m-t clearfix">
+                            <div style="float: left;width: 45%;">
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.35.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control inputh" name="config[35]" value="{$info.35.conf_value}" placeholder="{$info.35.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.38.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control inputh" name="config[38]" value="{$info.38.conf_value}" placeholder="{$info.38.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.40.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="config[40]" class="form-control inputh" value="{$info.40.conf_value}"  placeholder="{$info.40.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label" name="config[36]">{$info.36.name}：</label>
+                                    <div class="col-sm-7">
+                                        <select class="form-control" name="">
+                                            <option value="" >请选择</option>
+                                            <option value="utf8"  {eq name="info[36]['conf_value']" value="utf8"}selected="selected"{/eq}>Utf8</option>
+                                            <option value="gbk" {eq name="info[36]['conf_value']" value="gbk"}selected="selected"{/eq} >GBK</option>
+                                            <option value="gb2312" {eq name="info[36]['conf_value']" value="gb2312"}selected="selected"{/eq}>GB2312</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div style="float: left;width: 45%;">
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.37.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control inputh" name="config[37]" value="{$info.37.conf_value}" placeholder="{$info.37.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.39.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="password" class="form-control inputh" name="config[39]" value="{$info.39.conf_value}" placeholder="{$info.39.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.41.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control inputh" name="config[41]" value="{$info.41.conf_value}" placeholder="{$info.41.name}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group draggable" style="margin-top: 40px">
+                                <div class="col-sm-12 col-sm-offset-5">
+                                    <button class="btn btn-primary btn-add" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="tap nones">
+                        <form action="" method="post" class="form-horizontal m-t clearfix">
+                            <div style="float: left;width: 45%;">
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.46.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control inputh" name="config[46]" value="{$info.46.conf_value}" placeholder="{$info.46.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.44.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="config[44]" class="form-control inputh" value="{$info.44.conf_value}"  placeholder="{$info.44.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">是否上传到七牛：</label>
+                                    <div class="col-sm-9">
+                                        <label class="radio-inline">
+                                            <input type="radio" value="0" name="config[47]" {eq name="info[47]['conf_value']" value="0"}checked="checked"{/eq}>关闭</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="1" name="config[47]" {eq name="info[47]['conf_value']" value="1"}checked="checked"{/eq}>开启</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div style="float: left;width: 45%;">
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.48.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control inputh" name="config[48]" value="{$info.48.conf_value}" placeholder="{$info.48.name}">
+                                    </div>
+                                </div>
+                                <div class="form-group draggable disline">
+                                    <label class="col-sm-3 control-label">{$info.45.name}：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control inputh" name="config[45]" value="{$info.45.conf_value}" placeholder="{$info.45.name}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group draggable" style="margin-top: 40px">
+                                <div class="col-sm-12 col-sm-offset-5">
+                                    <button class="btn btn-primary btn-add" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 全局js -->
+<script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+<script src="__ADMIN__/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- 自定义js -->
+<script src="__ADMIN__/js/content.js?v=1.0.0"></script>
+
+<!-- jQuery UI -->
+<script src="__ADMIN__/js/jquery-ui-1.10.4.min.js"></script>
+
+<!-- From Builder -->
+<script src="__ADMIN__/js/plugins/beautifyhtml/beautifyhtml.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.tab_qt').click(function () {
+            var _index=$(this).index();
+            $(this).addClass('on').siblings().removeClass('on');
+            $('.contents .tap').eq(_index).addClass('shows').removeClass('nones').siblings().addClass('nones').removeClass('shows');
+
+        })
+    })
+</script>
+<script>
+    $(function () {
+
+        // 初始化Web Uploader
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: "__ADMIN__" +'/Uploader.swf',
+            // 文件接收服务端。
+            server: "{:url('Base/upload_img')}",
+            fileNumLimit:'1',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#fileOne',
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
+        });
+        // 当有文件添加进来的时候
+        uploader.on( 'fileQueued', function( file ) {
+            var $list=$('#fileList');
+            var thumbnailWidth='100';
+            var thumbnailHeight ='100';
+            var $li = $(
+                '<div id="' + file.id + '" class="file-item thumbnail">' +
+                '<img>' +
+                '<div class="info">' + file.name + '</div>' +
+                '</div>'
+                ),
+                $img = $li.find('img');
+            // $list为容器jQuery实例
+            $list.append( $li );
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 100 x 100
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+                $img.attr( 'src', src );
+            }, thumbnailWidth, thumbnailHeight );
+        });
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on( 'uploadProgress', function( file, percentage ) {
+            var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress span');
+            // 避免重复创建
+            if ( !$percent.length ) {
+                $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo( $li )
+                    .find('span');
+            }
+            $percent.css( 'width', percentage * 100 + '%' );
+        });
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on( 'uploadSuccess', function( file, response ) {
+            $('#imgurl').val(response);
+            $( '#'+file.id ).addClass('upload-state-done');
+        });
+        // 文件上传失败，显示上传出错。
+        uploader.on( 'uploadError', function( file ) {
+            var $li = $( '#'+file.id ),
+                $error = $li.find('div.error');
+            // 避免重复创建
+            if ( !$error.length ) {
+                $error = $('<div class="error"></div>').appendTo( $li );
+            }
+            $error.text('上传失败');
+        });
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on( 'uploadComplete', function( file ) {
+            $( '#'+file.id ).find('.progress').remove();
+        });
+    });
+
+</script>
+</body>
+
+</html>

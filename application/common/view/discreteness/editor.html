@@ -1,0 +1,16 @@
+<script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+<script src="__EDITOR__/ueditor.config.js" ></script><!--百度富文本-->
+<script src="__EDITOR__//ueditor.all.js" ></script><!--百度富文本-->
+<textarea name="content" id="content" placeholder="内容描述">{present name="info['content']"}
+{$info.content}{/present}</textarea>
+<script type="text/javascript">
+    $(function () {
+        //百度富文本编辑器
+        var editor = UE.getEditor('content', {
+            initialFrameHeight: 450,
+            autoHeight: false,
+            autoHeightEnabled: false,
+            autoFloatEnabled: false
+        });
+    });
+</script>

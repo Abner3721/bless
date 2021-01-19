@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__ADMIN__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__ADMIN__/js/webuploader.js"></script>
+    <link rel="stylesheet" href="__ADMIN__/css/webuploader.css">
+    {include file="public/colors"}
+    <style>
+        .droppable-active {
+            background-color: #ffe !important;
+        }
+        .tools a {
+            cursor: pointer;
+            font-size: 80%;
+        }
+
+        .form-body .col-md-6,
+        .form-body .col-md-12 {
+            min-height: 400px;
+        }
+        .draggable {
+            cursor: move;
+        }
+        .disline{
+            margin-bottom: 35px;
+        }
+        .inputh{
+            height: 40px;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>后台基本配置</h5>
+                </div>
+                <div class="ibox-content" style="min-height: 750px ">
+                    <form role="form" class="form-horizontal m-t clearfix">
+                        <div style="float: left;width: 45%;">
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">后台系统名称：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" name="title" class="form-control inputh" value="{$res.title}"  placeholder="后台系统名称">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">后台系统简称：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="title_mall" value="{$res.title_mall}" placeholder="后台系统简称">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">后台系统主色：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="admincolor" value="{$res.admincolor}"  placeholder="后台系统主色">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">添加按钮颜色：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="addcolor" value="{$res.addcolor}"  placeholder="添加按钮颜色">
+                                </div>
+                            </div>
+
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">修改按钮颜色：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="editcolor" value="{$res.editcolor}" placeholder="修改按钮颜色">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="float: left;width: 45%;">
+
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">删除按钮颜色：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="delcolor" value="{$res.delcolor}" placeholder="删除按钮颜色">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">查看详情按钮颜色：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="desccolor" value="{$res.desccolor}"  placeholder="查看详情按钮颜色">
+                                </div>
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">返回上一级按钮颜色：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control inputh" name="upcolor" value="{$res.upcolor}"  placeholder="返回上一级按钮颜色">
+                                </div>
+                            </div>
+
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">后台logo：</label>
+                                <div class="col-sm-7  clearfix">
+                                    <div id="uploader-demo">
+                                        <!--用来存放item-->
+                                        <div id="fileList" class="uploader-list"></div>
+                                        <div id="fileOne">选择图片</div>
+                                        <input id="imgurl" type="hidden" name="imgurl" value="{$res.imgurl}">
+                                        {notempty name="res['imgurl']"}
+                                        <a target="_blank" href="{$res.imgurl}">点击查看图片</a>
+                                        {/notempty}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group draggable disline">
+                                <label class="col-sm-3 control-label">后台登录背景图：</label>
+                                <div class="col-sm-7 clearfix">
+                                    <div id="uploader">
+                                        <!--用来存放item-->
+                                        <div id="fileLogo" class="uploader-list"></div>
+                                        <div id="fileLogoOne">选择图片</div>
+                                        <input id="imgurltwo" type="hidden" name="imgurltwo" value="{$res.imgurltwo}">
+                                        {notempty name="res['imgurltwo']"}
+                                        <a target="_blank" href="{$res.imgurltwo}">点击查看图片</a>
+                                        {/notempty}
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group draggable">
+                                <label class="col-sm-3 control-label">状态：
+                                </label>
+
+                                <div class="col-sm-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" value="1" name="status" {eq name="$res['status']" value="1"} checked="checked" {/eq}>开启</label>
+                                    <label class="radio-inline">
+                                        <input type="radio"  value="0"  name="status" {eq name="$res['status']" value="0"} checked="checked" {/eq}>关闭</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group draggable" style="margin-top: 40px">
+                            <div class="col-sm-12 col-sm-offset-5">
+                                <button class="btn btn-primary btn-add" type="button">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 全局js -->
+<script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+<script src="__ADMIN__/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- 自定义js -->
+<script src="__ADMIN__/js/content.js?v=1.0.0"></script>
+
+<!-- jQuery UI -->
+<script src="__ADMIN__/js/jquery-ui-1.10.4.min.js"></script>
+
+<!-- From Builder -->
+<script src="__ADMIN__/js/plugins/beautifyhtml/beautifyhtml.js"></script>
+<script src="__ADMIN__/js/plugins/layer/layer.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        // 初始化Web Uploader
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: "__ADMIN__" +'/Uploader.swf',
+            // 文件接收服务端。
+            server: "{:url('Base/upload_img')}",
+            fileNumLimit:'1',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#fileOne',
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
+        });
+        // 当有文件添加进来的时候
+        uploader.on( 'fileQueued', function( file ) {
+            var $list=$('#fileList');
+            var thumbnailWidth='100';
+            var thumbnailHeight ='100';
+            var $li = $(
+                '<div id="' + file.id + '" class="file-item thumbnail">' +
+                '<img>' +
+                '<div class="info">' + file.name + '</div>' +
+                '</div>'
+                ),
+                $img = $li.find('img');
+            // $list为容器jQuery实例
+            $list.append( $li );
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 100 x 100
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+                $img.attr( 'src', src );
+            }, thumbnailWidth, thumbnailHeight );
+        });
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on( 'uploadProgress', function( file, percentage ) {
+            var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress span');
+            // 避免重复创建
+            if ( !$percent.length ) {
+                $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo( $li )
+                    .find('span');
+            }
+            $percent.css( 'width', percentage * 100 + '%' );
+        });
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on( 'uploadSuccess', function( file, response ) {
+            $('#imgurl').val(response);
+            $( '#'+file.id ).addClass('upload-state-done');
+        });
+        // 文件上传失败，显示上传出错。
+        uploader.on( 'uploadError', function( file ) {
+            var $li = $( '#'+file.id ),
+                $error = $li.find('div.error');
+            // 避免重复创建
+            if ( !$error.length ) {
+                $error = $('<div class="error"></div>').appendTo( $li );
+            }
+            $error.text('上传失败');
+        });
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on( 'uploadComplete', function( file ) {
+            $( '#'+file.id ).find('.progress').remove();
+        });
+    });
+
+
+    $(function () {
+        $('.btn-primary').click(function(){
+            var title= $('input[name=title]').val();
+            var title_mall= $('input[name=title_mall]').val();
+            var addcolor= $('input[name=addcolor]').val();
+            var editcolor= $('input[name=editcolor]').val();
+            var delcolor= $('input[name=delcolor]').val();
+            var desccolor= $('input[name=desccolor]').val();
+            var upcolor= $('input[name=upcolor]').val();
+            var imgurl= $('#imgurl').val();
+            var imgurltwo= $('#imgurltwo').val();
+            var admincolor= $('input[name=admincolor]').val();
+            var status= $('input[name=status]:checked').val();
+
+            if(title == null||title =='') {
+            }else {
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('Adminconfig/index')}",
+                    data: {
+                        title:title,
+                        title_mall:title_mall,
+                        addcolor:addcolor,
+                        editcolor:editcolor,
+                        delcolor:delcolor,
+                        desccolor:desccolor,
+                        upcolor:upcolor,
+                        imgurl:imgurl,
+                        imgurltwo:imgurltwo,
+
+                        admincolor:admincolor,
+                        status:status,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == '200') {
+                            layer.msg(data.message, {
+                                time:2000,icon: 6
+                            },function(){
+                                window.location.href="{:url('Adminconfig/index')}";
+                            });
+                        } else {
+                            layer.alert(data.message, {
+                                icon: 1,
+                                skin: 'layer-ext-moon'
+                            });
+                            return false;
+                        }
+
+                    }
+                });
+            }
+        });
+    });
+
+
+    $(function () {
+
+        // 初始化Web Uploader
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: "__ADMIN__" +'/Uploader.swf',
+            // 文件接收服务端。
+            server: "{:url('Base/upload_img')}",
+            fileNumLimit:'1',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#fileLogoOne',
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
+        });
+        // 当有文件添加进来的时候
+        uploader.on( 'fileQueued', function( file ) {
+            var $list=$('#fileLogo');
+            var thumbnailWidth='100';
+            var thumbnailHeight ='100';
+            var $li = $(
+                '<div id="' + file.id + '" class="file-item thumbnail">' +
+                '<img>' +
+                '<div class="info">' + file.name + '</div>' +
+                '</div>'
+                ),
+                $img = $li.find('img');
+            // $list为容器jQuery实例
+            $list.append( $li );
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 100 x 100
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+                $img.attr( 'src', src );
+            }, thumbnailWidth, thumbnailHeight );
+        });
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on( 'uploadProgress', function( file, percentage ) {
+            var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress span');
+            // 避免重复创建
+            if ( !$percent.length ) {
+                $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo( $li )
+                    .find('span');
+            }
+            $percent.css( 'width', percentage * 100 + '%' );
+        });
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on( 'uploadSuccess', function( file, response ) {
+            $('#imgurltwo').val(response);
+            $( '#'+file.id ).addClass('upload-state-done');
+        });
+        // 文件上传失败，显示上传出错。
+        uploader.on( 'uploadError', function( file ) {
+            var $li = $( '#'+file.id ),
+                $error = $li.find('div.error');
+            // 避免重复创建
+            if ( !$error.length ) {
+                $error = $('<div class="error"></div>').appendTo( $li );
+            }
+            $error.text('上传失败');
+        });
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on( 'uploadComplete', function( file ) {
+            $( '#'+file.id ).find('.progress').remove();
+        });
+    });
+
+
+
+
+
+</script>
+
+</body>
+
+</html>

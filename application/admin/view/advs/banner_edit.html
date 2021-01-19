@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> 表单构建器</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__ADMIN__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    {include file="public/colors"}
+    <style>
+        .droppable-active {
+            background-color: #ffe !important;
+        }
+
+        .tools a {
+            cursor: pointer;
+            font-size: 80%;
+        }
+
+        .form-body .col-md-6,
+        .form-body .col-md-12 {
+            min-height: 400px;
+        }
+
+        .draggable {
+            cursor: move;
+        }
+
+        .csson{
+            display: block;
+        }
+        .cssoff{
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{$alltitle}</h5>
+                </div>
+                <div class="ibox-content">
+                    <form role="form" class="form-horizontal m-t">
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">Banner名称：</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="ad_name" class="form-control" value="{$info.ad_name}"  placeholder="Banner名称">
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">Banner简述：</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="ad_key" class="form-control" value="{$info.ad_key}"  placeholder="Banner简述">
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">广告排序：</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="sorts" value="{$info.sorts}"  placeholder="正整数">
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">是否生效 ：
+                            </label>
+                            <div class="col-sm-9">
+                                <label class="radio-inline">
+                                    <input type="radio" name="status" value="1" {eq name="info['status']" value="1"}checked="checked"{/eq} >开启</label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="status" value="0" {eq name="info['status']" value="0"}checked="checked"{/eq} >关闭</label>
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">开始/结束日期：</label>
+                            {include file="common@discreteness/time_scope" /}
+                        </div>
+                        <div class="form-group draggable ui-draggable">
+                            <label class="col-sm-3 control-label">媒介类型：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="media_type">
+                                    <option value="" {empty name="info['media_type']"}selected="selected"{/empty}>请选择</option>
+                                    {foreach name="adv_type" item="vo" key="k"}
+                                    <option value="{$k}" {eq name="k" value="$info['media_type']"}selected="selected"{/eq}>{$vo}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        <div id="ad_link" class="form-group draggable  cssoff">
+                            <label class="col-sm-3 control-label">广告链接：</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="ad_link" class="form-control" value="{$info.ad_link}"  placeholder="广告链接">
+                            </div>
+                        </div>
+                        <div id="image" class="form-group draggable cssoff">
+                            <label class="col-sm-3 control-label">上传图片：</label>
+                            <div class="col-sm-4">
+                                {include file="common@discreteness/uploadone"}
+                                {notempty name="info['ad_code']"}
+                                <a target="_blank" href="{$info.ad_code}">点击查看图片</a>
+                                {/notempty}
+                            </div>
+                        </div>
+                        <div id="ad_image_url" class="form-group draggable cssoff">
+                            <label class="col-sm-3 control-label">或者输入图片地址：</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="ad_image_url" class="form-control" value="{$info.ad_code}"  placeholder="输入图片地址">
+                            </div>
+                        </div>
+                        <div id="ad_text" class="form-group draggable cssoff">
+                            <label class="col-sm-3 control-label">广告内容：</label>
+                            <div class="col-sm-4">
+                                <textarea style="height: 80px" name="ad_text" class="form-control">{empty name="info['ad_code']"}广告内容{else/}{$info.ad_code}{/empty}</textarea>
+                            </div>
+                        </div>
+                        <div id="ad_code" class="form-group draggable ad_code cssoff">
+                            <label class="col-sm-3 control-label">广告代码：</label>
+                            <div class="col-sm-4">
+                                <textarea style="height: 80px" name="ad_code" class="form-control">{empty name="info['ad_code']"}广告代码{else/}{$info.ad_code}{/empty}</textarea>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group draggable">
+                            <div class="col-sm-12 col-sm-offset-3">
+                                <button class="btn btn-primary btn-add" type="button">提交</button>
+                                <button class="btn btn-white" type="button">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 全局js -->
+<script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+<script src="__ADMIN__/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- 自定义js -->
+<script src="__ADMIN__/js/content.js?v=1.0.0"></script>
+
+<!-- jQuery UI -->
+<script src="__ADMIN__/js/jquery-ui-1.10.4.min.js"></script>
+<script src="__ADMIN__/js/plugins/layer/layer.min.js"></script>
+<!-- From Builder -->
+<script src="__ADMIN__/js/plugins/beautifyhtml/beautifyhtml.js"></script>
+<script>
+    $(function () {
+        var type=$("select[name=media_type]").find("option:selected").val();
+        if(type == ''){
+            $('#image').addClass('cssoff').removeClass('csson');
+            $('#ad_text').addClass('cssoff').removeClass('csson');
+            $('#ad_code').addClass('cssoff').removeClass('csson');
+            $('#ad_link').addClass('cssoff').removeClass('csson');
+            $('#ad_image_url').addClass('cssoff').removeClass('csson');
+        }else if(type == 'image'){
+            $('#image').addClass('csson').removeClass('cssoff');
+            $('#ad_link').addClass('csson').removeClass('cssoff');
+            $('#ad_image_url').addClass('csson').removeClass('cssoff');
+            $('#ad_text').addClass('cssoff').removeClass('csson');
+            $('#ad_code').addClass('cssoff').removeClass('csson');
+        }else if(type == 'language'){
+            $('#image').addClass('cssoff').removeClass('csson');
+            $('#ad_link').addClass('csson').removeClass('cssoff');
+            $('#ad_image_url').addClass('cssoff').removeClass('csson');
+            $('#ad_text').addClass('csson').removeClass('cssoff');
+            $('#ad_code').addClass('cssoff').removeClass('csson');
+        }else if(type == 'code'){
+            $('#image').addClass('cssoff').removeClass('csson');
+            $('#ad_link').addClass('cssoff').removeClass('csson');
+            $('#ad_image_url').addClass('cssoff').removeClass('csson');
+            $('#ad_text').addClass('cssoff').removeClass('csson');
+            $('#ad_code').addClass('csson').removeClass('cssoff');
+        }
+        $("select").change(function(){
+            var type= $(this).val();
+            if(type == ''){
+                $('#image').addClass('cssoff').removeClass('csson');
+                $('#ad_text').addClass('cssoff').removeClass('csson');
+                $('#ad_code').addClass('cssoff').removeClass('csson');
+                $('#ad_link').addClass('cssoff').removeClass('csson');
+                $('#ad_image_url').addClass('cssoff').removeClass('csson');
+            }else if(type == 'image'){
+                $('#image').addClass('csson').removeClass('cssoff');
+                $('#ad_link').addClass('csson').removeClass('cssoff');
+                $('#ad_image_url').addClass('csson').removeClass('cssoff');
+                $('#ad_text').addClass('cssoff').removeClass('csson');
+                $('#ad_code').addClass('cssoff').removeClass('csson');
+            }else if(type == 'language'){
+                $('#image').addClass('cssoff').removeClass('csson');
+                $('#ad_link').addClass('csson').removeClass('cssoff');
+                $('#ad_image_url').addClass('cssoff').removeClass('csson');
+                $('#ad_text').addClass('csson').removeClass('cssoff');
+                $('#ad_code').addClass('cssoff').removeClass('csson');
+            }else if(type == 'code'){
+                $('#image').addClass('cssoff').removeClass('csson');
+                $('#ad_link').addClass('cssoff').removeClass('csson');
+                $('#ad_image_url').addClass('cssoff').removeClass('csson');
+                $('#ad_text').addClass('cssoff').removeClass('csson');
+                $('#ad_code').addClass('csson').removeClass('cssoff');
+            }
+        });
+
+
+
+        $('.btn-white').click(function(){
+            window.location.href = "{:url('Advs/banner',array('id'=>$info['position_id']))}";
+        });
+        $('.btn-primary').click(function(){
+            var ad_name= $('input[name=ad_name]').val();
+            var ad_key= $('input[name=ad_key]').val();
+            var sorts= $('input[name=sorts]').val();
+            var start_at= $('#start').val();
+            var end_at= $('#end').val();
+            var media_type= $('select[name=media_type]').find('option:selected').val();
+            var status=$("input[type=radio]:checked").val();
+            var ad_link= $('input[name=ad_link]').val();
+            var imgurl= $('#imgurl').val();
+            var  ad_image_url= $('input[name= ad_image_url]').val();
+            var ad_text= $('textarea[name=ad_text]').val();
+            var ad_code= $('textarea[name=ad_code]').val();
+            if(ad_name == null||ad_name ==''){
+                layer.alert('广告名称不能为空', {
+                    icon: 0,
+                    skin: 'layer-ext-moon'
+                });
+                return false;
+            }else if(start_at == null || start_at==''){
+                layer.alert('开始时间不能为空', {
+                    icon: 0,
+                    skin: 'layer-ext-moon'
+                });
+                return false;
+            }else if(end_at == null || end_at==''){
+                layer.alert('结束时间不能为空', {
+                    icon: 0,
+                    skin: 'layer-ext-moon'
+                });
+                return false;
+            }else{
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('Advs/banner_edit',array('id'=>$info['id']))}",
+                    data: {ad_name:ad_name,ad_key:ad_key,sorts:sorts,status:status,start_at:start_at,end_at:end_at,ad_link:ad_link,imgurl:imgurl,ad_image_url:ad_image_url,ad_text:ad_text,ad_code:ad_code,media_type:media_type},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == '200') {
+                            layer.msg(data.message, {
+                                time:2000,icon: 6
+                            },function(){
+                                window.location.href="{:url('Advs/banner',array('id'=>$info['position_id']))}";
+                            });
+                        } else {
+                            layer.alert(data.message, {
+                                icon: 2,
+                                skin: 'layer-ext-moon'
+                            });
+                            return false;
+                        }
+
+                    }
+                });
+            }
+        });
+    })
+</script>
+
+</body>
+
+</html>

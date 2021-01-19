@@ -1,0 +1,32 @@
+<style type="text/css">
+    /*adelect删除，btn-edit修改，btn-add添加，btn-up返回上一级，btn-desc查看详情，模块列表*/
+   .adelect{
+    background-color: {$adminpage.delcolor};
+    border-color: {$adminpage.delcolor};
+    }
+
+   .adelect , .adelect:hover,.adelect:focus,.adelect:active:hover {
+   background-color: {$adminpage.delcolor};
+   border-color: {$adminpage.delcolor};
+   }
+
+   .btn-edit,.btn-edit:hover,.btn-edit:focus,.btn-edit:active:hover {
+   background-color: {$adminpage.editcolor};
+   border-color: {$adminpage.editcolor};
+
+   }
+   .btn-add,.btn-add:hover,.btn-add:focus,.btn-add:active:hover{
+   background-color: {$adminpage.addcolor};
+   border-color: {$adminpage.addcolor};
+   }
+   .btn-up,.btn-up:hover,.btn-up:focus,.btn-up:active:hover{
+    color: {$adminpage.upcolor};
+   }
+    .btn-desc,.btn-desc:hover,.btn-desc:focus,.btn-desc:active:hover{
+    background-color: {$adminpage.desccolor};
+    border-color: {$adminpage.desccolor};
+    }
+
+
+
+</style>

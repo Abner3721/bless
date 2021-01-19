@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__ADMIN__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .droppable-active {
+            background-color: #ffe !important;
+        }
+        .tools a {
+            cursor: pointer;
+            font-size: 80%;
+        }
+        .form-body .col-md-6,
+        .form-body .col-md-12 {
+            min-height: 400px;
+        }
+        .draggable {
+            cursor: move;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{$alltitle}</h5>
+                </div>
+                <div class="ibox-content">
+                    <form role="form" class="form-horizontal m-t">
+
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">订单编号：</label>
+                            <div class="col-sm-4">
+                               <span>{$info.order_sn}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">商品数量/件：</label>
+                            <div class="col-sm-4">
+                                <input  type="text" name="number" class="form-control" value="{$info.number}"  placeholder="商品数量">
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">商品属性：</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="number" class="form-control" value="{$info.attribute}"  placeholder="商品属性">
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">订单总价/元：</label>
+                            <div class="col-sm-4">
+                                <span>{$info.allprice}</span>
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">修改总价(包含邮费)/元：</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="set_price" class="form-control" value="{$info.set_price}"  placeholder="修改总价">
+                            </div>
+                        </div>
+
+                        <div class="form-group draggable">
+                            <div class="col-sm-12 col-sm-offset-3">
+                                {in name="info['status']" value="0"}
+                                <button class="btn btn-primary  btn_change btn-add" type="button">提交</button>
+                                <button class="btn btn-white" type="button">取消</button>
+                                {/in}
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                {in name="info['status']" value=""}
+                                <button class="btn btn-primary sure_order btn-add" type="button">确定订单</button>
+                                {/in}
+                                &nbsp&nbsp&nbsp&nbsp&nbsp
+                                {in name="info['status']" value="2"}
+                                <button class="btn btn-primary btn_logistics btn-add" type="button">发货</button>
+                                {/in}
+                                &nbsp&nbsp&nbsp&nbsp&nbsp
+                                {in name="info['status']" value="1,2,4,5,6,7"}
+                                <button class="btn btn-primary refund_price btn-add" type="button">退款</button>
+                                {/in}
+                            </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div></div> </div></div>
+
+    <!-- 全局js -->
+    <script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__ADMIN__/js/plugins/layer/layer.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            /*取消*/
+                $('.btn-white').click(function(){
+                    window.location.href = "{:url('Orders/index')}";
+                });
+                /*提交*/
+            $('.btn_change').click(function(){
+                var number= $('input[name=number]').val();
+                var set_price= $('input[name=set_price]').val();
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('Orders/edit',array('id'=>$info['id']))}",
+                    data: {number:number,set_price:set_price},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == '200') {
+                            layer.msg(data.msg, {
+                                time:2000,icon: 6
+                            },function(){
+                                window.location.href="{:url('Orders/index')}";
+                            });
+                        } else {
+                            layer.alert(data.msg, {
+                                icon: 1,
+                                skin: 'layer-ext-moon'
+                            });
+                            return false;
+                        }
+
+                    }
+                });
+            });
+            /*确认订单*/
+            $('.sure_order').click(function(){
+                var status= "{$info['status']}";
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('Orders/logistics',array('id'=>$info['id']))}",
+                    data: {status:status},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == '200') {
+                            layer.msg(data.msg, {
+                                time:2000,icon: 6
+                            },function(){
+                                window.location.reload();
+                            });
+                        } else {
+                            layer.alert(data.msg, {
+                                icon: 1,
+                                skin: 'layer-ext-moon'
+                            });
+                            return false;
+                        }
+
+                    }
+                });
+            });
+            /*退款*/
+            $('.refund_price').click(function(){
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    title:'退款信息',
+                    area: ['450px', '300px'], //宽高
+                    content: '<div style="display:block;text-align: center;margin-top: 30px;margin-bottom:20px;color:#000;font-size: 15px;">退款类型：<input disabled="disabled" type="text" name="pay_type" value="{$info.pay_type}" placeholder="退款类型"></div><div style="display:block;text-align: center;margin-top: 30px;margin-bottom:20px;color:#000;font-size: 15px;margin-left: -190px;">付款金额/元：<div style="display: inline-block">{$info.pay_price}</div></div><div style="display:block;text-align: center;margin-bottom:20px;color:#000;font-size: 15px;">退款金额：<input type="text" name="refund_price"  placeholder="退款金额"></div> <button onclick="refund_price()" type="button" style="display:block; text-align: center; padding:4px 12px;background-color: #7266ba;border-color: #7266ba;border-radius: 3px; color: white;margin: 0 auto;outline:none;border: 1px solid transparent;">提交</button>'
+                });
+
+            });
+
+            /*发货*/
+            $('.btn_logistics').click(function(){
+            layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                title:'添加物流信息',
+                area: ['450px', '300px'], //宽高
+                content: '<div style="display:block;text-align: center;margin-top: 30px;margin-bottom:20px;color:#000;font-size: 15px;">物流名称：<input type="text" name="logistics_name"  placeholder="物流名称"></div><div style="display:block;text-align: center;margin-bottom:20px;color:#000;font-size: 15px;">物流标识：<input type="text" name="logistics_code"  placeholder="物流标识"></div><div style="display:block;text-align: center;margin-bottom:30px;color:#000;font-size: 15px;">物流单号：<input type="text" name="logistics_number"   placeholder="物流单号"></div> <button onclick="logistics_get()" type="button" style="display:block; text-align: center; padding:4px 12px;background-color: #7266ba;border-color: #7266ba;border-radius: 3px; color: white;margin: 0 auto;outline:none;border: 1px solid transparent;">提交</button>'
+            });
+
+        });
+        });
+        /*发货*/
+        function logistics_get() {
+            var logistics_name= $('input[name=logistics_name]').val();
+            var logistics_code= $('input[name=logistics_code]').val();
+            var logistics_number= $('input[name=logistics_number]').val();
+            var status= "{$info['status']}";
+            $.ajax({
+                type: "POST",
+                url: "{:url('Orders/logistics',array('id'=>$info['id']))}",
+                data: {logistics_name:logistics_name,logistics_code:logistics_code,logistics_number:logistics_number,status:status},
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == '200') {
+                        layer.msg(data.msg, {
+                            time:2000,icon: 6
+                        },function(){
+                            window.location.reload();
+                        });
+                    } else {
+                        layer.alert(data.msg, {
+                            icon: 1,
+                            skin: 'layer-ext-moon'
+                        });
+                        return false;
+                    }
+
+                }
+            });
+        }
+        /*退款*/
+        function refund_price() {
+            var pay_type= $('input[name=pay_type]').val();
+            var refund_price= $('input[name=refund_price]').val();
+            var status= '9';
+            $.ajax({
+                type: "POST",
+                url: "{:url('Orders/logistics',array('id'=>$info['id']))}",
+                data: {pay_type:pay_type,refund_price:refund_price,status:status},
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == '200') {
+                        layer.msg(data.msg, {
+                            time:2000,icon: 6
+                        },function(){
+                            window.location.reload();
+                        });
+                    } else {
+                        layer.alert(data.msg, {
+                            icon: 2,
+                            skin: 'layer-ext-moon'
+                        });
+                        return false;
+                    }
+
+                }
+            });
+        }
+    </script>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>商品信息</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table">
+                        <thead>
+                        <tr>
+
+                            <th>商品标题</th>
+                            <th>商品描述</th>
+                            <th>商品缩略图</th>
+                            <th>商品单价</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>q</td>
+                            <td>男</td>
+                            <td>23</td>
+                            <td>23</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>付款信息</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table">
+                        <thead>
+                        <tr>
+
+                            <th>订单状态</th>
+                            <th>付款类型</th>
+                            <th>付款金额</th>
+                            <th>订单创建时间</th>
+                            <th>付款时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{$info.status|getordersstatus}</td>
+                            <td>{$info.pay_type}</td>
+                            <td>{$info.create_time}</td>
+                            <td>{$info.pay_time}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>订单物流信息</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>快递名称</th>
+                            <th>快递单号</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{$info.logistics_name}</td>
+                            <td>{$info.logistics_number}</td>
+                        </tr>
+                         </table>
+                        <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>收货人及地址</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {$info.alladdress}</br>
+                                {$info.addressee}</br>
+                                {$info.mobile}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>快递信息</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<style type="text/css">
+    .hides{display: none;}
+    .shows{display: block}
+</style>
+<!-- 全局js -->
+<script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.ui-draggable .col-sm-3 a').click(function () {
+            $(this).addClass('hides').removeClass('shows');
+            $(this).next('select').addClass('shows').removeClass('hides');
+        })
+    })
+</script>
+<script src="__ADMIN__/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="__ADMIN__/js/content.js?v=1.0.0"></script>
+<!-- jQuery UI -->
+<script src="__ADMIN__/js/jquery-ui-1.10.4.min.js"></script>
+<!-- From Builder -->
+<script src="__ADMIN__/js/plugins/beautifyhtml/beautifyhtml.js"></script>
+
+</body>
+
+</html>

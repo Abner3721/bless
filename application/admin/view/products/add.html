@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> 表单构建器</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__ADMIN__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__ADMIN__/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    {include file="public/colors"}
+    <style>
+        .droppable-active {
+            background-color: #ffe !important;
+        }
+
+        .tools a {
+            cursor: pointer;
+            font-size: 80%;
+        }
+
+        .form-body .col-md-6,
+        .form-body .col-md-12 {
+            min-height: 400px;
+        }
+
+        .draggable {
+            cursor: move;
+        }
+
+        .csson{
+            display: block;
+        }
+        .cssoff{
+            display: none;
+        }
+    </style>
+</head>
+<script id="editor" type="text/plain" ></script>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{$alltitle}</h5>
+                </div>
+                <div class="ibox-content">
+                    <form role="form" class="form-horizontal m-t">
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">标题：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="title" class="form-control" value=""  placeholder="标题">
+                            </div>
+                        </div>
+
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">内容：</label>
+                            <div class="col-sm-5">
+                     {include file="common@discreteness/editor"}
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">摘要：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="summary" value="" placeholder="摘要">
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">自定义链接：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="url" value=""  placeholder="自定义链接">
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">排序：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="sorts" value=""  placeholder="正整数">
+                            </div>
+                        </div>
+
+                        <div class="form-group draggable ">
+                            <label class="col-sm-3 control-label">上传图片：</label>
+                            <div class="col-sm-4">
+                                {include file="common@discreteness/uploadone"}
+                            </div>
+                        </div>
+                        <div id="ad_image_url" class="form-group draggable">
+                            <label class="col-sm-3 control-label">或者远程图片链接：</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="logo" class="form-control" value=""  placeholder="远程图片链接">
+                            </div>
+                        </div>
+                        <div class="form-group draggable">
+                            <label class="col-sm-3 control-label">是否显示 ：
+                            </label>
+                            <div class="col-sm-9">
+                                <label class="radio-inline">
+                                    <input type="radio" checked value="1" name="status">开启</label>
+                                <label class="radio-inline">
+                                    <input type="radio"  value="0"  name="status">关闭</label>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group draggable">
+                            <div class="col-sm-12 col-sm-offset-3">
+                                <button class="btn btn-primary btn-add" type="button">提交</button>
+                                <button class="btn btn-white" type="button">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 全局js -->
+<script src="__ADMIN__/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="__ADMIN__/js/content.js?v=1.0.0"></script>
+<!-- jQuery UI -->
+<script src="__ADMIN__/js/jquery-ui-1.10.4.min.js"></script>
+<!-- From Builder -->
+<script src="__ADMIN__/js/plugins/beautifyhtml/beautifyhtml.js"></script>
+<script src="__ADMIN__/js/plugins/layer/layer.min.js"></script>
+<script>
+    $(function () {
+        $('.btn-white').click(function(){
+            window.location.href = "{:url('Products/index')}";
+        });
+        $('.btn-primary').click(function(){
+           var content= UE.getEditor('content').getContent();
+            var title= $('input[name=title]').val();
+            var imgurl= $('input[name=imgurl]').val();
+            var url= $('input[name=url]').val();
+            var logo= $('input[name=logo]').val();
+            var summary= $('input[name=summary]').val();
+            var sorts= $('input[name=sorts]').val();
+            var status=$("input[type=radio]:checked").val();
+
+            if(title == null||title ==''){
+                layer.alert('标题不能为空', {
+                    icon: 0,
+                    skin: 'layer-ext-moon'
+                });
+                return false;
+
+            }else if(content==null||content ==''){
+                layer.alert('内容不能为空', {
+                    icon: 0,
+                    skin: 'layer-ext-moon'
+                });
+                return false;
+            }else if(logo==null||logo ==''){
+                layer.alert('图片链接不能为空', {
+                    icon: 0,
+                    skin: 'layer-ext-moon'
+                });
+                return false;
+            }else if(summary==null||summary ==''){
+                layer.alert('描述不能为空', {
+                    icon: 0,
+                    skin: 'layer-ext-moon'
+                });
+                return false;
+            }else if(url==null||url ==''){
+                layer.alert('描述不能为空', {
+                    icon: 0,
+                    skin: 'layer-ext-moon'
+                });
+                return false;
+            }else {
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('Products/add')}",
+                    data: {title: title, content:content,url:url,logo:logo,summary:summary,sorts:sorts,status:status,imgurl:imgurl},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == '200') {
+                            layer.msg(data.message, {
+                                time:2000,icon: 6
+                            },function(){
+                                window.location.href="{:url('Products/index')}";
+                            });
+                        } else {
+                            layer.alert(data.message, {
+                                icon: 2,
+                                skin: 'layer-ext-moon'
+                            });
+                            return false;
+                        }
+
+                    }
+                });
+            }
+        });
+    })
+</script>
+
+</body>
+
+</html>
