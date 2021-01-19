@@ -1,0 +1,9 @@
+/.idea
+/.vscode
+/.settings
+/.svn
+*.log
+.env
+.buildpath
+.project
+ 
