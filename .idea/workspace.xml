@@ -11,6 +11,9 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/topthink/think-worker" />
@@ -42,6 +45,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -62,7 +66,13 @@
       <option name="presentableId" value="Default" />
       <updated>1610957015707</updated>
       <workItem from="1610957016990" duration="12033000" />
-      <workItem from="1611020936507" duration="592000" />
+      <workItem from="1611020936507" duration="4250000" />
+      <workItem from="1611035147520" duration="13707000" />
+      <workItem from="1608376492615" duration="173000" />
+      <workItem from="1608376709084" duration="173000" />
+      <workItem from="1608376903997" duration="257000" />
+      <workItem from="1608377564311" duration="78000" />
+      <workItem from="1608377712711" duration="18000" />
     </task>
     <servers />
   </component>
@@ -70,17 +80,21 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1610969557770">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1611044592569">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610969557770" />
-    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1610957667324">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611044592569" />
+    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1611035061712">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610957667324" />
-    <state x="706" y="240" key="NewPhpClassDialog" timestamp="1610964374551">
+    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1611035061712" />
+    <state x="706" y="240" key="NewPhpClassDialog" timestamp="1608376621616">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="706" y="240" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610964374551" />
+    <state x="706" y="240" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608376621616" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1611026933960">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1611026933960" />
   </component>
 </project>

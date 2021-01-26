@@ -58,14 +58,14 @@
                 <div class="ibox-content">
                     <div class="list first"  >
                         <ul>
-                            <?php if(is_array($serverInfo) || $serverInfo instanceof \think\Collection || $serverInfo instanceof \think\Paginator): $_60053c8f7627c = is_array($serverInfo) ? array_slice($serverInfo,0,5, true) : $serverInfo->slice(0,5, true); if( count($_60053c8f7627c)==0 ) : echo "" ;else: foreach($_60053c8f7627c as $k=>$vo): ?>
+                            <?php if(is_array($serverInfo) || $serverInfo instanceof \think\Collection || $serverInfo instanceof \think\Paginator): $_600f8287dd2b8 = is_array($serverInfo) ? array_slice($serverInfo,0,5, true) : $serverInfo->slice(0,5, true); if( count($_600f8287dd2b8)==0 ) : echo "" ;else: foreach($_600f8287dd2b8 as $k=>$vo): ?>
                             <li style="list-style: none"><span class="spans"><?php echo $k; ?></span><em><?php echo $vo; ?></em></li>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
                         </ul>
                     </div>
                     <div class="list"  >
                         <ul>
-                            <?php if(is_array($serverInfo) || $serverInfo instanceof \think\Collection || $serverInfo instanceof \think\Paginator): $_60053c8f7623c = is_array($serverInfo) ? array_slice($serverInfo,6,11, true) : $serverInfo->slice(6,11, true); if( count($_60053c8f7623c)==0 ) : echo "" ;else: foreach($_60053c8f7623c as $k=>$vo): ?>
+                            <?php if(is_array($serverInfo) || $serverInfo instanceof \think\Collection || $serverInfo instanceof \think\Paginator): $_600f8287dd269 = is_array($serverInfo) ? array_slice($serverInfo,6,11, true) : $serverInfo->slice(6,11, true); if( count($_600f8287dd269)==0 ) : echo "" ;else: foreach($_600f8287dd269 as $k=>$vo): ?>
                             <li style="list-style: none"><span class="spans"><?php echo $k; ?></span><em><?php echo $vo; ?></em></li>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
                         </ul>

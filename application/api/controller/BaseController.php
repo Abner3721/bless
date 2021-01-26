@@ -18,7 +18,9 @@ class BaseController extends Controller
     function _initialize()
     {
         $uid = Token::getCurrentUid();
-        $userinfo = Webuser::find($uid);
+        $userinfo = Webuser::field('id,nickname,username,imgurl')->find($uid);
+
+
         //判断用户是否登陆
         if (!$uid) {
             throw new ErrorException(['code'=>201,'msg'=>'请先授权登录']);

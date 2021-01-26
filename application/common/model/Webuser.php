@@ -15,7 +15,9 @@ class Webuser extends Model
     // 数据表名称
     protected $table='tp_webuser';
 
-    public  function getByOpenID($openid){
+
+
+    public static function getByOpenID($openid){
         $where = [
             'status' => 1,
             'openid' => $openid,
