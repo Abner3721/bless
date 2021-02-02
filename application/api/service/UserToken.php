@@ -39,9 +39,9 @@ class UserToken extends Token
      */
     public function get()
     { 
-//       $result = curl_get($this->wxLoginUrl);
+       $result = curl_get($this->wxLoginUrl);
 //       halt($result);
-       $result = '{"session_key":"jqcbdVq5xDwoPUfW8qLP4Q==","openid":"oSQ3-4lpAr4VHZpM2WuU-g5rOpN8"}';
+//       $result = '{"session_key":"jqcbdVq5xDwoPUfW8qLP4Q==","openid":"oSQ3-4lpAr4VHZpM2WuU-g5rOpN8"}';
  
  
         // 注意json_decode的第一个参数true
@@ -54,7 +54,7 @@ class UserToken extends Token
             throw new ErrorException([
             		'code'=>500,
             		'msg' => '获取session_key及openID时异常，微信内部错误',
-            		'errorCode'=>999
+            		'stauts'=>999
             ]);
         }
         else {
@@ -81,7 +81,7 @@ class UserToken extends Token
         throw new ErrorException(
             [
                 'msg' => $wxResult['errmsg'],
-                'errorCode' => $wxResult['errcode']
+                'status' => $wxResult['errcode']
             ]);
     }
 
@@ -149,7 +149,8 @@ class UserToken extends Token
         $user = Webuser::create(
             [
                 'openid' 	=> $openid, 
-            	'nickname'	=> $this->data['nickname'],
+            	'username'	=> json_encode($this->data['nickname']),
+            	'nickname'  => $this->data['nickname'],
             	'imgurl' 	=> $this->data['imgurl'],
             	'sex'		=> $this->data['sex'],
             ]);

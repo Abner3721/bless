@@ -39,7 +39,7 @@ class Token
 		$vars = Cache::get($token); 
 		if (!$vars)
 		{
-			throw new ErrorException(['code'=>201,'msg'=>'Token已过期或无效Token']);
+			throw new ErrorException(['code'=>401,'msg'=>'Token已过期或无效Token','status'=>10000]);
 		}
 		else {
 			if(!is_array($vars))
@@ -50,7 +50,7 @@ class Token
 				return $vars[$key];
 			}
 			else{
-				throw new Exception('尝试获取的Token变量并不存在');
+                throw new ErrorException(['code'=>401,'status'=>10000,'msg'=>'尝试获取token不存在']);
 			}
 		}
 	}

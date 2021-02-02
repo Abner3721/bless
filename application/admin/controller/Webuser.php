@@ -11,7 +11,7 @@ use think\Request;
  */
 class Webuser extends Base{
     public function index(){
-        $result=WebuserModel::all();
+        $result=WebuserModel::paginate(20);
         return $this->fetch('',['list'=>$result]);
     }
     /*修改状态*/

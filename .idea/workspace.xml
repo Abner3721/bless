@@ -11,6 +11,13 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -36,9 +43,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -73,6 +81,10 @@
       <workItem from="1608376903997" duration="257000" />
       <workItem from="1608377564311" duration="78000" />
       <workItem from="1608377712711" duration="18000" />
+      <workItem from="1611714908490" duration="73000" />
+      <workItem from="1611714982617" duration="5000" />
+      <workItem from="1611715060623" duration="26288000" />
+      <workItem from="1611798868585" duration="2247000" />
     </task>
     <servers />
   </component>
@@ -80,18 +92,22 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1611044592569">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1611717612250">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611044592569" />
-    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1611035061712">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611717612250" />
+    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1611801010872">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1611035061712" />
-    <state x="706" y="240" key="NewPhpClassDialog" timestamp="1608376621616">
+    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1611801010872" />
+    <state x="706" y="240" key="NewPhpClassDialog" timestamp="1611717054604">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="706" y="240" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608376621616" />
+    <state x="706" y="240" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611717054604" />
+    <state x="785" y="443" key="NewPhpFileDialog" timestamp="1611717316718">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="785" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611717316718" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1611026933960">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

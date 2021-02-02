@@ -9,7 +9,7 @@ namespace app\lib\exception;
 class ErrorException extends BaseException
 {
     public $code = 400;
-    public $status = 10000;
+    public $status = 999;
     public $msg = '请求发生异常';
 
 }

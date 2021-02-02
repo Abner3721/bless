@@ -20,13 +20,13 @@ class BaseController extends Controller
         $uid = Token::getCurrentUid();
         $userinfo = Webuser::field('id,nickname,username,imgurl')->find($uid);
 
-
         //判断用户是否登陆
-        if (!$uid) {
-            throw new ErrorException(['code'=>201,'msg'=>'请先授权登录']);
+        if(!$userinfo){
+            throw new ErrorException(['code'=>401,'status'=>10000,'msg'=>'请先授权登录']);
         }
         $this->uid = $uid;
         $this->userinfo = $userinfo;
+        $this->userinfo['nickname'] = json_decode($userinfo->username);
         $this->accessLog();
 
 

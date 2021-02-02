@@ -43,10 +43,11 @@ class Like
 
     public function isLike($id,$uid){
         $where = [
-            'bless_id'  => $id,
-            'uid'       => $uid,
+            'bless_id'      => $id,
+            'uid'           => $uid,
+
         ];
-        $res = $this->model->where($where)->find();
+        $res = $this->model->where($where)->whereTime('create_time', 'today')->find();
         if($res){
             return true;
         }

@@ -5,7 +5,7 @@
     <title>{$adminpage.title}</title>
     <style>
         html{ width:100%; height:100%;}
-        body{ background:url({$adminpage.imgurltwo}) no-repeat; background-size:cover; width:100%; height:100%; position:absolute;}
+        body{ background:url({$adminpage.imgurltwo}) no-repeat; background-size:100% 100%; width:100%; height:100%; position:absolute;}
         .loginbox{ width:410px; height:420px; background:#fff; position:fixed; left:50%; top:50%; margin:-210px 0 0 -200px; box-shadow:0 5px 10px 0 rgba(0,0,0,.2);}
         .login_logo{ text-align:center; margin-top:30px;}
         .loginbox h1{ font-size:24px; line-height:35px; font-weight:300; text-align:center; margin-top:15px;}
@@ -31,10 +31,13 @@
 </head>
 <body style="margin: 0;">
 <div class="loginbox or">
-    <div class="login_logo"><img src="{$adminpage.imgurl}" /></div>
-    <h1>{$adminpage.title}</h1>
+    <div class="login_logo"  >
+        <img src="{$adminpage.imgurl}" />
+    </div>
+<!--    <h1>{$adminpage.title}</h1>-->
     <div class="wrong"><span id="wronginfo"></span></div>
     <div class="con">
+
             <input type="hidden" name="redirect" value="">
             <ul class="formdata">
                 <li><i class="b1"></i><input type="text" placeholder="帐号" name="username"  value="admin" class="txt username"  AUTOCOMPLETE="off"/></li>

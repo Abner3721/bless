@@ -16,6 +16,7 @@ use think\Cache;
 class Qrcode
 {
     public function getQrcode(){
+        header("content-type: image/jpeg");
         $id = input('param.id', 0, 'intval');
         $validate = new BlessingValidate();
         if(!$validate->scene('show')->check(['id'=>$id])){
@@ -27,20 +28,26 @@ class Qrcode
         }
         $showBlessId = 'showBlessId_'.$id;
         if(!Cache::has($showBlessId)) {
-            $qrcode = WxHelper::getQrCode('pages/blessingDetail/index', ['id' => $id]);
+            $qrcode = WxHelper::getQrCode('pages/blessingDetail/index?id='.$id, ['id' => $id]);
             Cache::set($showBlessId,$qrcode);
         }else{
             $qrcode = Cache::get($showBlessId);
         }
         $qrcodeInfo = json_decode($qrcode);
         if(isset($qrcodeInfo->errcode)){
-           return showError($qrcodeInfo->errcode,$qrcodeInfo->errmsg);
+            if($qrcodeInfo->errcode == 40001 ) {
+                $wxHelper = new WxHelper();
+                $wxHelper->getClearAccessToken();
+                Cache::set($showBlessId,null);
+            }
+            $qrcode = WxHelper::getQrCode('pages/blessingDetail/index?id='.$id, ['id' => $id]);
+            halt('actton_token');
         }
         $img = imagecreatefromstring($qrcode);
-        imagepng($img);
+        imagejpeg($img);
         $content = ob_get_clean();
         return \response($content, 200, ['Content-Length' => strlen($content)])
-            ->contentType('image/png');
+            ->contentType('image/jpeg');
 
     }
 

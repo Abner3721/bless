@@ -20,8 +20,9 @@ class Base extends Controller{
             $this->redirect(url('admin/login/index'));
         }
             $adminSta = Db::name ('users')->where ('id' , session ('uid'))->field ('status,username,groupid')->find ();
+
             $roleSta = Db::name ('users')->alias ('a')->join ('auth_group g' , 'a.groupid=g.id' , 'left')->where ('a.id' , session ('uid'))->field ('g.status,g.title')->find ();
-            if ( is_null ($adminSta[ 'usupload_imgername' ]) ) {
+            if ( is_null ($adminSta[ 'username' ]) ) {
                 writelog (session ('username') . '账号不存在,强制下线！' , 200);
                 $this->error ('抱歉，账号不存在,强制下线' , 'admin/login/loginout');
             }
@@ -99,4 +100,6 @@ class Base extends Controller{
             return json('','400');
         }
     }
+
+
 }

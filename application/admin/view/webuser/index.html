@@ -32,7 +32,6 @@
                         <tr>
                             <th>ID</th>
                             <th>用户名</th>
-                            <th>手机号</th>
                             <th>头像</th>
                             <th>创建时间</th>
                             <th>状态</th>
@@ -44,7 +43,6 @@
                         <tr class="gradeX">
                             <td>{$vo.id}</td>
                             <td>{$vo.nickname}</td>
-                            <td>{$vo.phone}</td>
                             <td><a target="_blank" href="{$vo.imgurl}">{$vo.imgurl|getimgurl}</a></td>
                             <td class="center">{$vo.create_time}</td>
                             <td class="center"><a class="btn btn-primary" href="javascript:;" onclick="getstatus({$vo['status']},{$vo['id']})" >{$vo.status|getstatus}</a></td>
@@ -53,7 +51,12 @@
                         {/volist}
                         </tbody>
                     </table>
-
+                </div>
+                <div class="ibox-content" style="text-align:center;">
+                    {$list->render()}
+                    <div style="float:left">
+                        <span > 总条数：{$list->total()}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,41 +97,7 @@
 
 <!-- Page-Level Scripts -->
 <script>
-    $(document).ready(function () {
-        $('.dataTables-example').dataTable();
 
-        /* Init DataTables */
-        var oTable = $('#editable').dataTable();
-
-        /* Apply the jEditable handlers to the table */
-        oTable.$('td').editable('../example_ajax.php', {
-            "callback": function (sValue, y) {
-                var aPos = oTable.fnGetPosition(this);
-                oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-            },
-            "submitdata": function (value, settings) {
-                return {
-                    "row_id": this.parentNode.getAttribute('id'),
-                    "column": oTable.fnGetPosition(this)[2]
-                };
-            },
-
-            "width": "90%",
-            "height": "100%"
-        });
-
-
-    });
-
-    function fnClickAddRow() {
-        $('#editable').dataTable().fnAddData([
-            "Custom row",
-            "New row",
-            "New row",
-            "New row",
-            "New row"]);
-
-    }
     function getstatus(status,id) {
         $.ajax({
             type: "POST",

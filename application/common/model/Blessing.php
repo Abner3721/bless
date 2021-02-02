@@ -9,6 +9,7 @@
 
 namespace app\common\model;
 use think\Model;
+use think\Request;
 
 class Blessing extends Model
 {
@@ -18,6 +19,7 @@ class Blessing extends Model
         $res = $this->where('id',$id)->setInc('like');
         return $res;
     }
+
     public function getImgAttr($imgs){
         if(!$imgs){
             return [];
@@ -25,35 +27,60 @@ class Blessing extends Model
         $imgs = json_decode($imgs);
         $rows = [];
         foreach ($imgs as $v ){
-            $rows[] = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$v;
+            $rows[] = Request::instance()->domain().$v;
         }
         return $rows;
     }
 
-    public function getLists($page,$size){
-        $order = [
-            'like'  => 'desc',
-        ];
-        $where = [
-            'status' => 1,
-        ];
-
-        $result = $this->where($where)->order($order)->limit($page,$size) ->select();
+    /**
+     * Explanation:
+     * Author: Abner
+     * Email: 372195546@qq.com
+     * Date: 2021/1/29 19:14
+     * @param $size;显示条数
+     * @param $where;条件
+     * @param $order;排序规则
+     * @return \think\Paginator
+     */
+    public function getLists($size,$where,$order){
+        $result = $this->where($where)->order($order)->paginate($size);
         return $result;
     }
 
     public function getMyLists($uid){
-        $sql = "SELECT b.id,b.uid,b.nickname,b.like,b.head,b.img,b.content,b.ranking FROM (SELECT t.*, @ranking := @ranking + 1 AS ranking FROM (SELECT @ranking := 0) r,
-                    (SELECT id,nickname,uid,`like`, head,img,content FROM tp_blessing ORDER BY `like` DESC) AS t) AS b WHERE b.uid={$uid}";
+        $sql = "SELECT b.id,b.uid,b.nickname,b.like,b.head,b.img,b.content,b.status, b.ranking FROM (SELECT t.*, @ranking := @ranking + 1 AS ranking FROM (SELECT @ranking := 0) r,
+                    (SELECT id,nickname,uid,`like`, head,img,content, status FROM tp_blessing WHERE status=1 ORDER BY `like` DESC) AS t) AS b WHERE  b.status=1 AND b.uid={$uid} ";
         $lists = $this->query($sql);
         return $lists;
     }
 
-    public function getIndexLists($page){
+    public function getIndexLists($page,$noId){
         $order = [
             'like'=>'desc',
         ];
-        $res = $this->where('status', 1)->order($order)->paginate($page);
+        if(!empty($noId)){
+            $where = [
+                'id'        => ['<>',$noId],
+            ];
+        }
+        $where = [
+            'status'    => 1,
+        ];
+        $res = $this->where($where)->order($order)->paginate($page);
+        return $res;
+    }
+
+    /**
+     * Explanation:后台更新like数据量
+     * Author: Abner
+     * Email: 372195546@qq.com
+     * Date: 2021/1/26 20:40
+     * @param $id
+     * @param $like
+     * @return int|string
+     */
+    public function updateByIdLikeAdmin($id,$like){
+        $res = $this->where('id', $id)->setField('like', $like);
         return $res;
     }
 

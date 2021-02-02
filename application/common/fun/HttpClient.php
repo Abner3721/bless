@@ -29,7 +29,6 @@ class HttpClient
             }
             $strPOST = join("&", $aPOST);
         }
-
         curl_setopt($oCurl, CURLOPT_URL, $url);
         curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($oCurl, CURLOPT_POST, true);

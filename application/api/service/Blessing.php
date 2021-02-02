@@ -12,6 +12,7 @@ use think\Db;
 use think\Exception;
 use think\Log;
 use app\common\model\Like as LikeModel;
+use think\Request;
 
 class Blessing
 {
@@ -22,19 +23,36 @@ class Blessing
         $this->model = new \app\common\model\Blessing();
     }
 
-
-    public function getLists($page,$size){
+    /**
+     * Explanation:全部排名业务操作
+     * Author: Abner
+     * Email: 372195546@qq.com
+     * Date: 2021/1/29 19:14
+     * @param $page;当前页数
+     * @param $size; 显示条数
+     * @param $where;条件
+     * @param $order;排序规则
+     * @return mixed
+     */
+    public function getLists($page,$size,$where,$order){
         $start = ($page-1)*$size;
         $ranking = $start;
-        $list = $this->model->getLists($start,$size);
-        if(!$list){
-            return [];
+        $list = $this->model->getLists($size,$where,$order);
+        if($list->isEmpty()){
+            $rows['total'] = 0;
+            $rows['render'] = '';
+            $rows['data'] = [];
+            return $rows;
+
         }
-        $rows = [];
+        $rows['total']= $list->total();
+        $rows['render'] = $list->render();
         foreach($list as $k=>$v){
             $ranking++;
             $v['ranking'] = $ranking;
-            $rows[] = $v; 
+            $v['nickname'] = json_decode($v['nickname']);
+            $v['content'] = json_decode($v['content']);
+            $rows['data'][] = $v;
         }
         return $rows;
     }
@@ -52,9 +70,12 @@ class Blessing
             }else{
                 $v['img'] = json_decode($v['img']);
                 foreach ($v['img'] as &$val ){
-                    $val =  $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$val;
+                    $val =  Request::instance()->domain().$val;
                 }
             }
+
+            $v['nickname'] = json_decode($v['nickname']);
+            $v['content'] = json_decode($v['content']);
 
             $rows[] =$v;
         }
@@ -62,13 +83,20 @@ class Blessing
 
     }
 
-    public function getIndexLists($page){
-        $res = $this->model ->getIndexLists($page);
+    public function getIndexLists($page,$noId){
+        $res = $this->model ->getIndexLists($page,$noId);
         if(!$res) {
             return [];
         }
         $list = $res->toArray();
-        return $list;
+        $rows = [];
+        foreach($list['data'] as $k=>$v){
+
+            $v['nickname'] = json_decode($v['nickname']);
+            $v['content'] = json_decode($v['content']);
+            $rows[] = $v;
+        }
+        return $rows;
     }
     public function count(){
         $res = $this->model->where('status',1)->count();
@@ -80,7 +108,12 @@ class Blessing
 
 
     public function add($data){
-        $res = $this->model->where('uid',$data['uid'])->count('*');
+        $where = [
+            'uid'       => $data['uid'],
+            'status'    => 1
+        ];
+
+        $res = $this->model->where($where)->count('*');
         if($res >= 3 ){
             throw new Exception('只能发布三条祝福语');
         }
@@ -93,6 +126,17 @@ class Blessing
         return $this->model->id;
     }
 
+    /**
+     * Explanation:前台点赞业务操作
+     * Author: Abner
+     * Email: 372195546@qq.com
+     * Date: 2021/1/26 20:03
+     * @param $id
+     * @param $uid
+     * @return bool|int|true
+     * @throws Exception
+     * @throws \think\exception\PDOException
+     */
     public function updateByIdLike($id,$uid){
         $data = [
             'bless_id'  => $id,
@@ -118,6 +162,7 @@ class Blessing
     }
 
 
+
     /**
      * Explanation:根据id获取祝福语的数据
      * Author: Abner
@@ -132,11 +177,51 @@ class Blessing
      */
     public function showBless($id){
         $info = $this->model->where('status',1)->find($id);
+
         if(!$info) {
             return [];
         }
         $info = $info->toArray();
+        $info['nickname'] = json_decode($info['nickname']);
+        $info['content']  = json_decode($info['content']);
+
         return $info;
+    }
+
+    /**
+     * Explanation:后台更新点赞数据业务处理
+     * Author: Abner
+     * Email: 372195546@qq.com
+     * Date: 2021/1/26 20:40
+     * @param $id
+     * @param $like
+     * @return bool
+     * @throws Exception
+     */
+    public function updateByIdLikeAdmin($id,$like){
+        $res = $this->model->find($id);
+        if(!$res){
+            throw new Exception('该条祝福已经不存在！');
+        }
+        try {
+            $result = $this->model->updateByIdLikeAdmin($id,$like);
+        } catch (\Exception $e){
+            return false;
+            Log::error($e->getMessage());
+        }
+
+        if($result){
+            return true;
+        }
+
+        return false;
+    }
+    function updateByIdStatus($where,$data){
+        $res = $this->model->where($where)->find();
+        if(!$res){
+            throw new Exception('该条祝福不存在');
+        }
+        return $this->model->update($data,$where);
     }
 
 }

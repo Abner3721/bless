@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>奈思科技</title>
+    <title>{$adminpage.title_mall}</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <!--[if lt IE 9]>
@@ -44,7 +44,7 @@
             border-left: 4px solid {$adminpage.admincolor};
         }
         body.mini-navbar .nav-header{
-        background-color:{$adminpage.admincolor};
+            background-color:{background: #1c2b36};
         }
     </style>
 
@@ -61,11 +61,14 @@
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
-                                <span class="clear">
-                                    <span class="block m-t-xs" style="font-size:20px;"><strong class="font-bold">{$adminpage.title}</strong>
-                                    </span>
-                                </span></a></div>
+<!--                        <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">-->
+<!--                                <span class="clear">-->
+<!--                                    <span class="block m-t-xs" style="font-size:20px;"><strong class="font-bold">{$adminpage.title}44</strong>-->
+<!--                                    </span>-->
+<!--                                </span>-->
+<!--                        </a>-->
+                        <img src="{$adminpage.imgurl}" />
+                    </div>
                     <div class="logo-element">{$adminpage.title_mall}</div>
                 </li>
                 {foreach  $menu as $vo}
